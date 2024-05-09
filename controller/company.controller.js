@@ -17,3 +17,17 @@ exports.listCompany = async (req, res) => {
         throw error;
     }
 }
+
+exports.uploadLogo = async (req, res) => {
+    try {
+        if (!req.file) {
+            return res.status(400).json({ error: 'No file uploaded' });
+        }
+
+        return companyService.uploadLogo(req);
+
+    } catch (error) {
+        console.error('Upload logo', error);
+        throw error;
+    }
+}

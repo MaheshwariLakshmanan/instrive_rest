@@ -64,7 +64,8 @@ const CompanySchema = new Schema({
     },
     logo: {
         data: Buffer,
-        contentType: String
+        contentType: String,
+        name: String
     },
     address: {
         type: String,

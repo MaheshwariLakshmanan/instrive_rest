@@ -9,7 +9,7 @@ exports.createCompany = async (company) => {
     }
 }
 
-exports.listCompany = async (req, res) => {
+exports.listCompany = async (req) => {
     try {
         let { page, limit } = req.query;
         page = page ? parseInt(page) : 1;
@@ -39,6 +39,24 @@ exports.listCompany = async (req, res) => {
         }
     } catch (error) {
         console.error('Create company', error);
+        throw error;
+    }
+}
+
+exports.uploadLogo = async (req) => {
+    try {
+        const { companyId } = req.params;
+        const { originalname, mimetype, buffer } = req.file;
+        return Company.updateOne({ _id: companyId }, {
+            $set: {
+                logo: {
+                    data: buffer,
+                    contentType: mimetype,
+                    name: originalname
+                }
+            }
+        })
+    } catch (error) {
         throw error;
     }
 }
